@@ -41,10 +41,78 @@ class _ShoppingState extends State<Shopping> {
     {"pro_id":"3","pro_name":"مشاوي","pro_price":"300","pro_qty":"5","pro_image":"images/category/cat3.png"},
     {"pro_id":"4","pro_name":"مشاوي","pro_price":"400","pro_qty":"6","pro_image":"images/category/cat4.png"},
   ];
+
+  void _showSheetMessage(context){
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15.0),
+          topRight: Radius.circular(15.0),
+        )
+      ),
+        context: context,
+        builder:(BuildContext bc){
+          return Container(
+            child: ListView(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 30.0,bottom: 30.0),
+                      child: new Icon(Icons.done,color: Colors.red,size: 70.0,),
+                    ),
+                    new Text("شكرا لطلبك",
+                      style: TextStyle(color: Colors.red,fontSize: 25.0,fontWeight: FontWeight.bold),),
+                    new Text("يمكنك تتبع الطلبية من خلال الزر في الأسفل",
+                      style: TextStyle(color: Colors.grey,fontSize: 16.0),),
+                    Padding(padding: EdgeInsets.only(top: 50.0),
+                      child: MaterialButton(
+                        child: Container(
+                          margin: EdgeInsets.all(15.0),
+                          width: MediaQuery.of(context).size.width,
+                          child: Text("تابع الطلبية",textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white,fontSize: 20.0),),
+                          decoration: BoxDecoration(
+                              color: Colors.red,
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                        ),
+                        onPressed: (){
+
+                        },
+                      ),
+                    ),
+                    Padding(padding: EdgeInsets.only(top: 5.0),
+                      child: MaterialButton(
+                        child: Container(
+                          margin: EdgeInsets.all(15.0),
+                          width: MediaQuery.of(context).size.width,
+                          child: Text("الانتقال الى المأكولات",textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.black,fontSize: 20.0),),
+                          decoration: BoxDecoration(
+                              color: Colors.grey[100],
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                        ),
+                        onPressed: (){
+
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          );
+        }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[50],
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: Stack(
@@ -75,46 +143,76 @@ class _ShoppingState extends State<Shopping> {
         ),
       ),
       bottomNavigationBar: Container(
-        child: Row(
+        height: 220.0,
+        child: Column(
           children: [
-            Text("1000",style: TextStyle(color: Colors.white,fontSize: 18.0,fontWeight: FontWeight.bold),),
-            
-            Padding(padding: EdgeInsets.all(2.0)),
-            Text(":المجموع",style: TextStyle(color: Colors.white,fontSize: 18.0),),
-            Expanded(child: Text("")),
-            GestureDetector(
-              onTap: (){},
-              child: Row(
-                children: [
-                  Text("إضافة الى السلة",style: TextStyle(color: Colors.white,fontSize: 20.0),),
-                  Icon(Icons.shopping_cart,color: Colors.white,),
-                ],
+            Card(
+              child: Container(
+                padding: EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        new Text("إجمالي المبلغ"),
+                        Expanded(child: Text("")),
+                        new Text("1000.0"),
+                      ],
+                    ),
+                    Divider(color: Colors.black,),
+                    Row(
+                      children: [
+                        new Text("دلفري"),
+                        Expanded(child: Text("")),
+                        new Text("1000.0"),
+                      ],
+                    ),
+                    Divider(color: Colors.black,),
+                    Row(
+                      children: [
+                        new Text("الإجمالي الكلي"),
+                        Expanded(child: Text("")),
+                        new Text("1000.0"),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            )
-            
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 5.0),
+              alignment: Alignment.center,
+              child:
+                  GestureDetector(
+                    onTap: (){},
+                    child:
+                        Text("إضافة الى السلة",style: TextStyle(color: Colors.white,fontSize: 20.0),),
+                  ),
+              padding: EdgeInsets.only(left: 50.0,right: 30.0),
+              height: 40.0,
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(40.0),
+              ),
+            ),
+
+            Container(
+              alignment: Alignment.center,
+              child:
+              GestureDetector(
+                onTap: (){
+                  _showSheetMessage(context);
+                },
+                child:
+                Text("تأكيد الطلبية",style: TextStyle(color: Colors.white,fontSize: 20.0),),
+              ),
+              padding: EdgeInsets.only(left: 50.0,right: 30.0),
+              height: 40.0,
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(40.0),
+              ),
+            ),
           ],
-        ),
-        padding: EdgeInsets.only(left: 50.0,right: 30.0),
-        height: 75.0,
-        decoration: BoxDecoration(
-         // color: Colors.red[300],
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: <Color>[
-              Colors.red,
-              Colors.red[300],
-              Colors.red[300],
-              Colors.red,
-            ]
-          ),
-          boxShadow: [BoxShadow(
-            color: Colors.grey[100],
-            spreadRadius: 7,
-            blurRadius: 4,
-            offset: Offset(0,3),
-          )],
-          borderRadius: BorderRadius.circular(40.0),
         ),
       ),
     );
@@ -135,50 +233,62 @@ class SingleProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListTile(
-        title: Text(pro_name,style: TextStyle(fontWeight: FontWeight.bold),),
-        subtitle: Text(pro_price),
-        leading: Container(
-          width: 50.0,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(pro_image),
-              fit: BoxFit.cover,
+    return Card(
+      child: Column(
+        children: [
+          Container(
+            alignment: Alignment.topRight,
+            child: Icon(
+              Icons.cancel_outlined,
+              color: Colors.red,
             ),
-            shape: BoxShape.circle,
           ),
-        ),
-        trailing: Container(
-          width: 70.0 ,
-          child: Row(
-            children: [
-              GestureDetector(
-                child: Container(
-                  padding: EdgeInsets.all(5.0),
-                  child: FaIcon(FontAwesomeIcons.plus,color: Colors.white,size: 16,),
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(5.0),
+          Container(
+            child: ListTile(
+              title: Text(pro_name,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.0),),
+              subtitle: Text(pro_price),
+              leading: Container(
+                width: 50.0,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(pro_image),
+                    fit: BoxFit.cover,
                   ),
+                  shape: BoxShape.circle,
                 ),
               ),
-              Expanded(child: new Text(pro_qty,style: TextStyle(fontSize: 20.0),textAlign: TextAlign.center,)),
-              GestureDetector(
-                child: Container(
-                  padding: EdgeInsets.all(5.0),
-                  child: FaIcon(FontAwesomeIcons.minus,color: Colors.white,size: 16,),
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
+              trailing: Container(
+                width: 70.0 ,
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      child: Container(
+                        padding: EdgeInsets.all(5.0),
+                        child: FaIcon(FontAwesomeIcons.plus,color: Colors.white,size: 16,),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                      ),
+                    ),
+                    Expanded(child: new Text(pro_qty,style: TextStyle(fontSize: 20.0),textAlign: TextAlign.center,)),
+                    GestureDetector(
+                      child: Container(
+                        padding: EdgeInsets.all(5.0),
+                        child: FaIcon(FontAwesomeIcons.minus,color: Colors.white,size: 16,),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
-
 }
